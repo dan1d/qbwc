@@ -1,7 +1,7 @@
 module QBWC
   class Worker
 
-    def requests(job)
+    def requests(job, user = nil)
       []
     end
 

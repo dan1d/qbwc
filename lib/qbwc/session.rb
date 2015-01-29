@@ -30,7 +30,7 @@ class QBWC::Session
 
   def next_request
     return nil if current_job.nil?
-    until (request = current_job.next_request) do
+    until (request = current_job.next_request(self)) do
       pending_jobs.shift
       reset(true) or break
     end
@@ -47,7 +47,7 @@ class QBWC::Session
       request.delete('xml_attributes')
       request.values.first['xml_attributes'] = {'iterator' => 'Continue', 'iteratorID' => self.iterator_id}
       request = QBWC::Request.new(request)
-    end 
+    end
     request
   end
 
@@ -105,7 +105,7 @@ class QBWC::Session
     return unless response.is_a?(Hash) && response['xml_attributes']
 
     @status_code, @status_severity, status_message, iterator_remaining_count, iterator_id = \
-      response['xml_attributes'].values_at('statusCode', 'statusSeverity', 'statusMessage', 
+      response['xml_attributes'].values_at('statusCode', 'statusSeverity', 'statusMessage',
                                                'iteratorRemainingCount', 'iteratorID')
     QBWC.logger.info "Parsed headers. statusSeverity: '#{status_severity}'. statusCode: '#{@status_code}'"
 

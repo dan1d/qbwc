@@ -83,10 +83,10 @@ class QBWC::Job
     @requests_provided_when_job_added = value
   end
 
-  def next_request
+  def next_request(session = nil)
     # Generate and save the requests to run when starting the job.
     if (requests.nil? || requests.empty?) && ! self.requests_provided_when_job_added
-      r = worker.requests(self)
+      r = worker.requests(self, session.try(:user))
       r = [r] if r.is_a?(Hash)
       self.requests = r
     end
