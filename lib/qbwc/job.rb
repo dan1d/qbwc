@@ -42,7 +42,7 @@ class QBWC::Job
       QBWC.logger.info "Job '#{name}' not enabled."
       return false
     end
-    sr = worker.should_run?(self, nil)
+    sr = worker.should_run?(self, user)
     QBWC.logger.info "Job '#{name}' should_run?: #{sr}."
     return sr
   end
