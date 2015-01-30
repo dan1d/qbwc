@@ -90,7 +90,7 @@ class QBWC::Session
   end
 
   def pending_jobs
-    @pending_jobs ||= QBWC.pending_jobs(@company, self.user)
+    @pending_jobs ||= QBWC.pending_jobs(@company, user)
   end
 
   def parse_response_header(response)
