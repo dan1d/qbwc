@@ -5,7 +5,7 @@ module QBWC
       []
     end
 
-    def should_run?(job)
+    def should_run?(job, user = nil)
       true
     end
 

@@ -115,7 +115,7 @@ QWC
       if company_file_path.nil?
         QBWC.logger.info "Authentication of user '#{username}' failed."
         company_file_path = AUTHENTICATE_NOT_VALID_USER
-      elsif !QBWC.pending_jobs(company_file_path).present?
+      elsif !QBWC.pending_jobs(company_file_path, username).present?
         QBWC.logger.info "Authentication of user '#{username}' succeeded, but no jobs pending for '#{company_file_path}'."
         company_file_path = AUTHENTICATE_NO_WORK
       else

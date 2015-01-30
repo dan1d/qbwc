@@ -37,12 +37,12 @@ class QBWC::Job
     self.enabled = false
   end
 
-  def pending?
+  def pending?(user = nil)
     if !enabled?
       QBWC.logger.info "Job '#{name}' not enabled."
       return false
     end
-    sr = worker.should_run?(self)
+    sr = worker.should_run?(self, nil)
     QBWC.logger.info "Job '#{name}' should_run?: #{sr}."
     return sr
   end
